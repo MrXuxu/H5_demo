@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .search {
+            position: relative;
+            width: 300px;
+            margin: 40px auto;
+        }
+
+        input.search-jianshu {
+            width: 300px;
+            height: 30px;
+            background: #eee;
+            padding-left: 10px;
+            border: none;
+            border-radius: 15px;
+            outline: none;     
+        }
+
+        button.jianshu {
+            width: 30px;
+            height: 20px;
+            position: absolute;
+            right: -5px;
+            top: 50%;
+            margin-top: -10px;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            background: url("images/search.png") no-repeat center center;
+        }      
+    </style>
+</head>
+<body>
+    <div class="search">
+        <input type="text" class="search-jianshu" placeholder="搜索">
+        <button class="jianshu"></button>
+    </div>
+</body>
+</html>

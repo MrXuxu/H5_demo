@@ -1,0 +1,62 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+.header {
+    background-color: rgba(128, 128, 128, 0.22);
+    text-align: center;
+}
+
+a {
+    text-decoration: none;
+    color: #000;
+}
+
+.nav {
+    width: 1000px;
+    height: 40px;
+    margin: 0 auto;
+    line-height: 40px;
+    font-size: 0;
+}
+
+.nav>a {
+    font-size: 18px;
+    display: inline-block;
+    width: 100px;
+    height: 40px;
+}
+
+.nav>a:hover {
+    background-color: #eee;
+}
+
+.nav-left {
+    float: left;
+    position: relative;           
+    overflow: hidden;
+    font-size: 12px;
+}
+
+.icon {
+    height: 20px;
+    width: 20px;
+    background: url("images/location.png") no-repeat center center;
+    position: absolute;
+    top: 25%;
+}
+
+.local {
+    margin-left: 30px;
+}
+
+.nav-right {
+    float: right;
+    position: relative;
+    font-size: 12px;
+}
+
+.adm {
+    margin-left: 25px;
+}
