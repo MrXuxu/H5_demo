@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            position: relative;
+            margin: 50px;
+        }
+        .container img {
+            width: 250px;
+            height: 250px;
+            vertical-align: bottom;
+        }
+        .front, .back {
+            position: absolute;
+            top: 0;
+            left: 0;
+            backface-visibility: hidden;
+        }
+        @keyframes toback {
+            0% {transform: rotateY(0deg);}
+            50% {transform: rotateY(180deg);}
+            100% {transform: rotateY(360deg);}
+        }
+        @keyframes tofront {
+            0% {transform: rotateY(-180deg);}
+            50% {transform: rotateY(0deg);}
+            100% {transform: rotateY(180deg)}
+        }
+        .front {
+            animation: toback 3s infinite;
+        }
+        .back {
+            animation: tofront 3s infinite;
+        }
+        .front, .back {
+            border: 5px solid white;
+            box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="front"><img src="images/image-01.jpg" alt=""></div>
+        <div class="back"><img src="images/image-02.jpg" alt=""></div>
+    </div>
+</body>
+</html>
