@@ -1,0 +1,67 @@
+* {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+}
+#container {
+    margin: 20px auto;
+    width: 400px;   /*此宽度根据图片宽度调整 */
+    height: 300px;  /*此高度根据图片宽度调整 */
+    border: 3px solid #333;
+    overflow: hidden;   /*为了将图片隐藏*/
+    position: relative;
+}
+#list {
+    width: 1600px;  /*图片总宽度*/
+    height: 300px;
+    position: absolute;
+    z-index: 1;
+}
+#list img {
+    float: left;
+    width: 400px;
+    height: 300px;
+}
+#buttons {
+    position: absolute;
+    height: 10px;
+    width: 100px;
+    z-index: 2; /*将buttons放在list上层*/
+    bottom: 20px;
+    right: 250px;
+}
+#buttons span {
+    cursor: pointer;
+    float: left;
+    border: 1px solid aqua;
+    border-radius: 50%;
+    height: 10px;
+    width: 10px;
+    margin-right: 5px;
+    background: #e98352;
+}
+#buttons .on {
+    background: #474550;
+}
+.arrow {
+    cursor: pointer;
+    line-height: 60px;
+    text-align: center;
+    font-size: 30px;  /*设置箭头的大小*/  
+    width: 40px;
+    height: 60px;
+    position: absolute;
+    z-index: 2;  /*将arrow放在list上层*/ 
+    top: 120px;
+    color: #fff;
+}
+#prev {
+    left: 0;
+}
+#next {
+    right: 0;
+}
+#prev:hover,
+#next:hover {
+    background: #333;
+}
