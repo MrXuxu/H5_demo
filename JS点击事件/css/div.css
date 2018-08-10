@@ -1,0 +1,48 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+.title {
+    font-size: 25px;
+    font-weight: bold;
+}
+.title>span {
+    padding: 5px;
+    background: red;
+    color: #fff;
+    cursor: pointer;
+}
+#test {
+    width: 50px;
+    height: 50px;
+    margin-top: 40px;
+    border: 3px solid #ddd;
+}
+#setting {
+    position: fixed;
+    display: none;
+    top: 20%;
+    right: 40%;
+    padding: 10px;
+    font-size: 20px;
+    border: 5px solid #ccc;
+}
+#setting>p {
+    margin-bottom: 17px;
+}
+#setting span {
+    margin: 0 3px;
+    padding: 3px 10px;
+    cursor: pointer;
+}
+#setting span:hover {
+    background-color: aquamarine;
+}
+#setting>span {
+    background-color: cadetblue;
+    color: #fff;
+}
+#setting>p>span {
+    padding: 3px 10px;
+    background-color: #ddd;
+}
