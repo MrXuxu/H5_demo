@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 100%;
+            padding: 3%;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+        .box .loader {
+            width: 30%;
+            float: left;
+            height: 200px;
+            margin-right: 3%;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .loading-1 {
+            width: 35px;
+            height: 35px;
+            position: relative;
+        }
+        .loading-1 i {
+            display: block;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            /* border: 1px solid #ccc; */
+            /* background: linear-gradient(transparent 0%, transparent 70%, red 30%); */
+            background: linear-gradient(transparent 0%, transparent 60%, #333 40%, #333 100%);
+            animation: loading-1 .6s linear 0s infinite;
+        }
+        @keyframes loading-1 {
+            0% {transform: rotate(0deg);}
+            50% {transform: rotate(180deg);}
+            100% {transform: rotate(360deg);}
+        }
+        @keyframes loading-2 {
+            0% {transform: scaleY(1)}
+            50% {transform: scaleY(.4)}
+            100% {transform: scaleY(1)}
+        }
+        @keyframes loading-3 {
+            50% {
+                transform: scale(0.4);
+                opacity: 0.3;;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+        }
+        .loading-2 i {
+            display: inline-block;
+            width: 4px;
+            height: 35px;
+            border-radius: 2px;
+            margin: 0 2px;
+            background-color: #333;
+        }
+        .loading-2 i:nth-child(1){
+            animation: loading-2 .5s ease-in 0.1s infinite;
+        }
+        .loading-2 i:nth-child(2){
+            animation: loading-2 .5s ease-in 0.2s infinite;
+        }
+        .loading-2 i:nth-child(3){
+            animation: loading-2 .5s ease-in 0.3s infinite;
+        }
+        .loading-2 i:nth-child(4){
+            animation: loading-2 .5s ease-in 0.4s infinite;
+        }
+        .loading-2 i:nth-child(5){
+            animation: loading-2 .5s ease-in 0.5s infinite;
+        }
+
+        .loading-3 {
+            position: relative;
+        }
+        .loading-3 i {
+            display: block;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background-color: #333;
+            position: absolute;
+        }
+        .loading-3 i:nth-child(1){
+            top: 25px;
+            left: 0;
+            animation: loading-3 1s ease 0s infinite;
+        }
+        .loading-3 i:nth-child(2){
+            top: 17px;
+            left: 17px;
+            animation: loading-3 1s ease -0.12s infinite;
+        }
+        .loading-3 i:nth-child(3){
+            top: 0;
+            left: 25px;
+            animation: loading-3 1s ease -0.24s infinite;
+        }
+        .loading-3 i:nth-child(4){
+            top: -17px;
+            left: 17px;
+            animation: loading-3 1s ease -0.36s infinite;
+        }
+        .loading-3 i:nth-child(5){
+            top: -25px;
+            left: 0;
+            animation: loading-3 1s ease -0.48s infinite;
+        }
+        .loading-3 i:nth-child(6){
+            top: -17px;
+            left: -17px;
+            animation: loading-3 1s ease -0.6s infinite;
+        }
+        .loading-3 i:nth-child(7){
+            top: 0;
+            left: -25px;
+            animation: loading-3 1s ease -0.72s infinite;
+        }
+        .loading-3 i:nth-child(8){
+            top: 17px;
+            left: -17px;
+            animation: loading-3 1s ease -0.84s infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <div class="loader">
+            <div class="loading-1">
+                <i></i>
+            </div>
+        </div>
+        <div class="loader">
+            <div class="loading-2">
+                <i></i>
+                <i></i>
+                <i></i>
+                <i></i>
+                <i></i>
+            </div>
+        </div>
+        <div class="loader">
+            <div class="loading-3">
+                <i></i>
+                <i></i>
+                <i></i>
+                <i></i>
+                <i></i>
+                <i></i>
+                <i></i>
+                <i></i>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
