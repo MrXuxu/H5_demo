@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/lunbo.css">
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div class="content">
+        <div id="list">
+            <img src="images/01.png" alt="">
+            <img src="images/02.png" alt="">
+            <img src="images/03.png" alt="">
+            <img src="images/04.png" alt="">
+            <img src="images/05.png" alt="">
+        </div>
+        <button id="prev"></button>
+        <button id="next"></button>
+        <div id="btns">
+            <span class="current"></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+    <script>
+        $(function(){
+            /*------------点击焦点跳到相应的图片并且添加样式----------*/
+            $("span").click(function(){
+                $(this).addClass("current").siblings().removeClass("current");
+                $("#list>img").eq($(this).index()).fadeIn().siblings().fadeOut();
+                var b_index = $(this).index();
+                console.log(b_index);
+            })
+
+            /*----------------点击按钮切换图片添加焦点样式-------------*/
+            var index = 0;
+            $("#next").click(function(){
+                index++;
+                if(index>4) {
+                    index = 0;
+                }
+                console.log(index);
+                animate(index);
+                // $("#list img").eq(index).fadeIn().siblings().fadeOut();
+                // $("#btns>span").eq(index).addClass("current").siblings().removeClass("current");
+            })
+            $("#prev").click(function(){
+                index--;
+                if(index<0) {
+                    index = 4;
+                }
+                console.log(index);
+                animate(index);
+                // $("#list>img").eq(index).fadeIn().siblings().fadeOut();
+                // $("#btns>span").eq(index).addClass("current").siblings().removeClass("current");
+            })
+            /*-----------封装切换图片&焦点样式函数-------*/
+            function animate(index) {
+                $("#list>img").eq(index).fadeIn().siblings().fadeOut();
+                $("#btns>span").eq(index).addClass("current").siblings().removeClass("current");
+            }
+            /*---------添加定时器---------*/
+            var timer;
+            function play(){
+                
+                timer = setInterval(function(){
+                    $("#next").click()
+                }, 800)
+            }
+            /*---------添加自动播放--------*/
+            play();
+            function stop(){
+                clearInterval(timer);
+            }
+            /*---------鼠标悬停停止-------*/
+            $(".content").mouseover(function(){
+                stop();
+            })
+            $(".content").mouseout(function(){
+                play();
+            })
+        })
+    </script>
+</body>
+</html>
