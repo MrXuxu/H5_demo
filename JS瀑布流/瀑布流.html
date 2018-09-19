@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .row::after {
+            display: block;
+            content: "";
+            clear: both;
+        }
+        .content {
+            float: left;
+            box-shadow: 0 0 3px 1px rgba(0, 0, 0, .1);
+        }
+        img {
+            width: 300px;
+            padding: 10px;
+            vertical-align: bottom;
+        }
+    </style>
+</head>
+<body>
+    <div id="container" class="container row">
+        <div class="content"><img src="images/01.jpg" alt=""></div>
+        <div class="content"><img src="images/02.jpg" alt=""></div>
+        <div class="content"><img src="images/03.jpg" alt=""></div>
+        <div class="content"><img src="images/04.jpg" alt=""></div>
+        <div class="content"><img src="images/05.jpg" alt=""></div>
+        <div class="content"><img src="images/06.jpg" alt=""></div>
+        <div class="content"><img src="images/07.jpg" alt=""></div>
+        <div class="content"><img src="images/08.jpg" alt=""></div>
+        <div class="content"><img src="images/09.jpg" alt=""></div>
+        <div class="content"><img src="images/10.jpg" alt=""></div>
+        <div class="content"><img src="images/11.jpg" alt=""></div>
+        <div class="content"><img src="images/12.jpg" alt=""></div>
+    </div>
+    <script>
+        window.onload = function(){
+            
+            var url = {
+                dataUrl: [{
+                    src: "01.jpg"
+                }, {
+                    src: "02.jpg"
+                }, {
+                    src: "03.jpg"
+                }, {
+                    src: "04.jpg"
+                }, {
+                    src: "05.jpg"
+                }, {
+                    src: "06.jpg"
+                }, {
+                    src: "07.jpg"
+                }, {
+                    src: "08.jpg"
+                }, {
+                    src: "09.jpg"
+                }, {
+                    src: "10.jpg"
+                }, {
+                    src: "11.jpg"
+                }, {
+                    src: "12.jpg"
+                }]
+            }
+            var data = url.dataUrl;
+            var container = document.getElementById("container");
+            var contents = document.getElementsByClassName("content");
+            place();
+            function place(){ 
+                
+                var ww = window.innerWidth;
+                var cw = contents[0].offsetWidth;
+                var num = Math.floor(ww/cw);
+                
+                // var content_arr = Array.prototype.slice.call(contents);
+                var arr_height = [];
+                container.style.width = num*cw + "px";
+                // content_arr.forEach(function(element, index){
+                //     if(index<num){
+                //         arr_height.push(element.offsetHeight);
+                //     }else{
+                //         var minHeight = Math.min(...arr_height);  //获取最小高度
+                //         var minIndex = arr_height.indexOf(minHeight);  //获取最小高度的index值
+                //         var offsetLeft = content_arr[minIndex].offsetLeft;  //通过minIndex值获取最小块的左边偏移量
+                //         content_arr[index].style.position = "absolute";  //给当前元素添加样式
+                //         element.style.top = minHeight + "px";  //把最小块的height赋给当前元素top
+                //         element.style.left = offsetLeft + "px";  //把最小块left赋给当前元素left
+                //         // console.log(minHeight);
+                //         arr_height[minIndex] += element.offsetHeight;  //最小块的height = 原height + 当前元素的height
+                //         // console.log(index);
+                //     }
+                // })
+                for(let i=0; i<contents.length; i++){
+                    if(i<num){
+                        arr_height.push(contents[i].offsetHeight);
+                    }else {
+                        var minHeight = Math.min(...arr_height);
+                        var minIndex = arr_height.indexOf(minHeight);
+                        var offsetLeft = contents[minIndex].offsetLeft;
+                        contents[i].style.position = "absolute";
+                        contents[i].style.left = offsetLeft + "px";
+                        contents[i].style.top = minHeight + "px";
+                        arr_height[minIndex] += contents[i].offsetHeight;
+                    }
+                }
+                var offsetTop = contents[contents.length-1].offsetTop +
+                    contents[contents.length - 1].offsetHeight / 2;
+                window.onscroll = function() {
+                    if(sCondition()) {
+                        for(let i=0; i<data.length; i++) {
+                            let img = document.createElement("img");
+                            img.src = "images/" + data[i].src;
+                            let div = document.createElement("div");
+                            div.className = "content";
+                            div.append(img);
+                            container.append(div);
+                            place();
+                        }
+                        console.log("滚轮高度："+document.documentElement.scrollTop);
+                        console.log("可视高度："+document.documentElement.clientHeight);
+                        console.log("页面高度："+screen.availHeight);
+                        console.log("最后一个元素自身一半距离顶部高度："+offsetTop);
+                        console.log("加载");
+                    }
+                }
+                function sCondition() {
+                    var sh = document.documentElement.scrollTop;
+                    var vh = document.documentElement.clientHeight;
+                    // var offsetTop = contents[contents.length-1].offsetTop +
+                    // contents[contents.length - 1].offsetHeight / 2;
+                    return sh+vh > offsetTop? true:false;
+                }
+                
+            }
+            window.onresize = function(){
+                console.log("resize");
+                window.location.reload();
+            }
+        }
+    </script>
+</body>
+</html>
