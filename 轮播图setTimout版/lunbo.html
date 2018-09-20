@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" list="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" list="ie=edge">
+    <title>Document</title>
+    <style>
+        .container {
+            width: 600px;
+            height: 400px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+
+            border: 3px solid #333;
+            overflow: hidden;
+
+        }
+
+        .list {
+            width: 4200px;
+            height: 400px;
+            font-size: 0;
+
+            position: absolute;
+        }
+
+        img {
+            vertical-align: bottom;
+        }
+
+        #prev,
+        #next {
+            width: 40px;
+            height: 70px;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+
+            border: none;
+            outline: none;
+            cursor: pointer;
+        }
+
+        #prev {
+            left: 0;
+            background: url("images/icon-slides.png") no-repeat -84px 0px;
+        }
+
+        #next {
+            right: 0;
+            background: url("images/icon-slides.png") no-repeat -126px 0px;
+        }
+
+        #prev:hover {
+            background: url("images/icon-slides.png") no-repeat 0px 0px;
+        }
+
+        #next:hover {
+            background: url("images/icon-slides.png") no-repeat -43px 0px;
+        }
+        .btns {
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+
+            cursor: default;
+        }
+        .btns>span {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            margin-right: 5px;
+            border-radius: 50%;
+            background-color: #333;
+            border: 2px solid #333;
+            cursor: pointer;
+        }
+        .current {
+            background-color: #fff !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container" id="container">
+        <div class="list" id="list" style="left: -600px;">
+            <img src="images/05.png" alt="">
+            <img src="images/01.png" alt="">
+            <img src="images/02.png" alt="">
+            <img src="images/03.png" alt="">
+            <img src="images/04.png" alt="">
+            <img src="images/05.png" alt="">
+            <img src="images/01.png" alt="">
+        </div>
+        <button id="prev"></button>
+        <button id="next"></button>
+        <div class="btns" id="btns">
+            <span class="current"></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+
+    <script>
+        var container = document.getElementById("container");
+        var list = document.getElementById("list");
+        var prev = document.getElementById("prev");
+        var next = document.getElementById("next");
+        var btns = document.getElementById("btns").children;
+        var index = 0;
+        var animated = false;
+
+        /* ---------------------------prev, next点击功能------------------ */
+        prev.onclick = function () {
+            if(animated) {
+                return false;  //当animated为true时，prev并不会执行
+            }
+            animate(600);
+            index--;
+            showBtn();
+        }
+        next.onclick = function () {
+            if(animated) {
+                return false;
+            }
+            animate(-600);
+            index++;
+            showBtn();
+        }
+
+        /* -------------------------焦点点击功能-------------------- */
+        for(let i=0; i<btns.length; i++) {
+            btns[i].onclick = function(){
+                /* animate偏移量为点击的i-原先的index */
+                animate((i-index)*-600);
+                /* 此时的index等于点击的i值 */
+                index = i;
+                showBtn();
+            }
+        }
+        
+        /* ----------------------自动播放---------------------------- */
+        function autoplay() {
+            var timer2 = setInterval(function(){
+                next.onclick();
+            }, 800);
+        }
+        function stopplay() {
+            clearInterval(timer2);
+        }
+        autoplay();
+        /* ----------------------鼠标悬停播放停止---------------------- */
+        container.onmouseover = stopplay;
+        container.onmouseout = autoplay;
+
+
+
+
+
+        function animate(offset) {
+            var newLeft = parseInt(list.style.left) + offset;  //number类型
+            var timer = 300;  //便宜一次总共用时300ms
+            var interval = 10; //每隔10ms执行一次
+            var speed = offset / (timer / interval);  //每次偏移的speed为20px
+            function go() {
+                animated = true;
+                var leftValue = parseInt(list.style.left);
+                
+                if((speed<0 && leftValue>newLeft) || (speed>0 && leftValue<newLeft)){
+                    //如果速度小于0(向左偏移),并且此时left的至大于设定偏移的距离
+                    //或者如果速度大于0(向右偏移),并且此时left的值小于设定偏移的距离
+                    list.style.left = leftValue + speed + "px";
+                    //当前的left值+speed
+                    setTimeout(go, interval);  //每隔10ms执行一次go(每10ms,偏移20px)
+                }
+                /* 当前left值等于设定的newLeft后 */
+                else {
+                    animated = false;  //animated回到false，点击事件可以执行
+                    if(newLeft<-3000) {
+                        newLeft = -600;
+                        list.style.left = newLeft + "px";
+                    }
+                    if(newLeft>-600) {
+                        newLeft = -3000;
+                        list.style.left = newLeft + "px";
+                    }
+                }
+                /* 每隔10ms list的left增加一个speed */
+            }
+            go();
+            console.log("目标偏移量："+newLeft);
+        }
+        function showBtn() {
+            /* 先移除所有current */
+            for(i=0; i<btns.length; i++) {
+                btns[i].classList.remove("current");
+            }
+            if(index<0){
+                index = 4;
+            }
+            if(index>4){
+                index = 0;
+            }
+            /* 给当前index加上current */
+            btns[index].classList.add("current");
+        }
+    </script>
+</body>
+
+</html>
