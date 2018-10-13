@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>Document</title>
+    <style>
+        table {
+            width: 800px;
+            margin: 20px auto;
+            border-collapse: collapse;
+            text-align: center;
+        }
+        th, td {
+            padding: 5px;
+            border: 1px solid black;
+        }
+        th {
+            background-color: aquamarine;
+        }
+        form {
+            text-align: center;
+        }
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- v-cloak 配合属性选择器display:none，加载完毕自动移除 -->
+    <div id="app" v-cloak>  
+        <form action="#">
+            <input type="text" v-model="pid">
+            <input type="text" v-model="pname">
+            <input type="button" value="添加" id="add" v-on:click="add">
+        </form>
+        <table>
+            <thead>
+                <tr>
+                    <th>编号</th>
+                    <th>名称</th>
+                    <th>创建时间</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td colspan="4" v-if="list.length == 0">数据为空</td>
+                </tr>
+                <tr v-for="item in list">
+                    <td>{{item.id}}</td>
+                    <td>{{item.name}}</td>
+                    <td>{{item.ctime}}</td>
+                    <td><a href="javascript:void(0)" v-on:click="del(item)">删除</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                list: [
+                    {id:1, name:"奔驰", ctime:new Date}
+                    // {id:2, name:"宝马", ctime:new Date}
+                ],
+                pid:"",
+                pname:""
+            },
+            methods: {
+                add: function(){
+                    // console.log(this.pid);
+                    var p = {id:this.pid, name:this.pname, ctime:new Date};
+                    this.list.push(p);  
+                    /* 清空页面上文本框的数据 */
+                    this.pid = "";
+                    this.pname = "";
+                },
+                del: function(item){
+                    /* 删除提示，如果if(true)则会执行return */
+                    if(!confirm("确定要删除吗")){
+                        return;
+                    }
+                    var index = this.list.indexOf(item);  //获取此时的index值
+                    console.log(index);
+                    this.list.splice(index, 1);
+                }
+            }
+        })
+
+    </script>
+</body>
+</html>
