@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17-beta.0/vue.js"></script>
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        #book {
+            width: 900px;
+            margin: 40px auto auto auto;
+        }
+        #book input {
+            width: 300px;
+            height: 40px;
+            padding-left: 15px;
+            /* border: none; */
+            outline: none;
+            border: 1px solid #333;
+            border-radius: 15px;
+        }
+        #book button {
+            border-radius: 15px;
+            height: 42px;
+            width: 60px;
+            border: none;
+            outline: none;
+            cursor: pointer;
+        }
+        .left {
+            float: left;
+            width: 350px;
+        }
+        #book img {
+            width: 100%; 
+        }
+        #book h1,
+        #book img,
+        #book p {
+            margin-top: 20px;
+        }
+        #book>p {
+            float: left;
+            width: 500px;
+            margin-top: 100px;
+            text-indent: 2em;
+            margin-left: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div id="book">
+        <div>
+            <input type="text" placeholder="请输入书名" v-model="name" v-on:keydown.enter="search">
+            <button @click="search">搜索</button>
+        </div>
+        <div class="left">
+            <h1 id="title">{{ title }}</h1>
+            <img id="img" v-bind:src="img_url">
+            <p id="author">{{ author }}</p>
+        </div>
+        <p id="about">{{ about }}</p>
+    </div>
+    <script>
+        new Vue({
+            el: "#book", 
+            data: {
+                name: "",
+                title: "",
+                img_url: "",
+                author: "",
+                about: ""
+            },
+            methods: {
+                search: function(){
+                    /* 动态搜索实现 */
+                    var self = this;
+                    var name = this.name;
+                    var url = `https://douban.uieee.com/v2/book/search?q=${name}&cont=1`
+                    $.ajax({
+                        type: 'get',
+                        url: url,
+                        dataType: 'jsonp',
+                        success(res){
+                            self.handleData(res);
+                        }
+                    })
+                },
+                handleData: function(res){
+                    this.title = res.books[0].title;          
+                    this.img_url = res.books[0].images.small;
+                    this.about = res.books[0].summary;
+                    this.author = "作者：" + res.books[0].author;
+                }
+            }
+        })
+    </script>
+</body>
+</html>
