@@ -1,0 +1,11 @@
+$browser-default-font-size: 100px!default;
+
+
+html, body {
+    font-family: MicrosoftYaHei;
+}
+
+
+@function p2m($px){
+    @return $px / $browser-default-font-size * 1rem;
+}
